@@ -13,8 +13,6 @@ assignees: ''
 ## 🔗 Zugehörige Story
 *Welche Story (Kundenwunsch) wird mit diesem Task bedient?*
 
-## ⏳ Aufwandschätzung
-**Geschätzte ideale Personentage:** [z.B. 1.0]
 
 ## ✅ Definition of Done
 - [ ] Code implementiert
