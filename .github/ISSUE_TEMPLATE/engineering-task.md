@@ -14,14 +14,9 @@ assignees: ''
 *Welche Story (Kundenwunsch) wird mit diesem Task bedient?*
 
 ## ⏳ Aufwandschätzung
-**Geschätzte ideale Personentage:** [z.B. 0.5 oder 1.0]
-
-## ⚠️ Abhängigkeiten
-- [ ] Wartet auf Task: #Issue-Nummer
-- [ ] Blockiert Task: #Issue-Nummer
-- [ ] Keine Abhängigkeiten
+**Geschätzte ideale Personentage:** [z.B. 1.0]
 
 ## ✅ Definition of Done
 - [ ] Code implementiert
-- [ ] Unit-Tests geschrieben und erfolgreich (Pflicht laut Abschnitt 2.1)
-- [ ] Dokumentation im Quellcode ergänzt
+- [ ] Unit-Tests geschrieben (Pflicht laut Handbuch)
+- [ ] Dokumentation im Code ergänzt
