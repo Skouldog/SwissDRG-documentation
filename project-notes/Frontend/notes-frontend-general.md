@@ -1,24 +1,30 @@
-# Frontend
+# Frontend Notes
+
+---
+
+&nbsp;
 
 ## General Tools and Concepts used:
 
-HTML
+```HTML```: _Layout Language_
 
-Javascipt
+```Javascipt```: _Programming Language_
 
-Typescript
+```Typescript```: _JavaScript Extension including Type-Safety_
 
-JSX
+```JSX```: _JavaScript Extension allowing inline HTML and XML_
 
-React
+```React```: _JavaScript Library for building user interfaces_
 
-Vite
+```vite```: _Build Tool for React (allows using JSX)_
 
-Node.js
+```Node.js```: _JavaScript Runtime Environment (allows running JavaScript outside of a browser)_
 
-Docker
+```Docker```: _Containerization of Systems to allow for standardizing development environments_
 
+&nbsp;
 
+&nbsp;
 
 
 ## Developing the Frontend
@@ -41,26 +47,6 @@ updating the actual UI._
 ### What is needed to create a simple Demo-Application containing the developed frontend?
 - The React library itself (either JavaScript or TypeScript)
 - (Optional) build tool like *Vite* allowing to use JSX
-- A running webserver ()
+- A running webserver (Node.js)
 
 
-
-
-Structure:
->```
->frontend-app
->|-- dockerfile         (specifying the image for the docker container)
->|-- package.json       (specifying the dependencies)
->|-- vite.config.ts     (specifying the configuration for vite)
->|-- index.html         (entry point for the frontend)
->|-- src                (actual source code)
->    |-- main.jsx       (entry point actual code)
->    |-- App.jsx        (main component / root component)
->    |-- components     (components)
->```
-
-
-Creating new project using vite:
-```
-npx vite create app-name
-```
