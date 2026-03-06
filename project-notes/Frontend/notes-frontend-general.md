@@ -50,3 +50,18 @@ updating the actual UI._
 - A running webserver (Node.js)
 
 
+### Creating an application using React and Vite
+
+> Application Structure
+> 
+> ```
+>
+> ```
+
+### Running the application
+
+### Runnign the application in a docker container
+
+### Buidling a basic React component
+
+
