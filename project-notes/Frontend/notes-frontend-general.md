@@ -50,18 +50,45 @@ updating the actual UI._
 - A running webserver (Node.js)
 
 
-### Creating an application using React and Vite
+### Demo Frotend erstellen mit React und vite
 
-> Application Structure
+```npm```: _Node Package Manager welcher in Node.js beinhalten ist_
+```npm -v ```: Überprüfen ob ```npm``` installiert ist
+
+
+> Manuelles Erstellen eines React Projektordners:
 > 
+> - Projektordner manuell erstellen: ```mkdir name```
+> - In Projektordner navigieren: ```cd name```
+> - In diesem Projektordner den npm Package-Manager initialisieren: ```npm init -y```
+
+
+Zwar ist es möglich, ein React Projekt manuell zu erstellen, jedoch 
+ist mit ```vite```bereits ein tool enhtalten um dies zu vereinfachen.
+
+```vite``` kann direkt mit ```npm``` aufgerufen werden.
+
+> Erstellen eines React Projekts mit ```vite``` als Build Tool:
+> ```
+> npm create vite@latest my-app
 > ```
 >
+> This will create a new folder called ```my-app``` containing the 
+> basic structure of a React application. 
+
+&nbsp;
+
+> Typische Ordnerstruktur eines Rect Projekts:
+> 
 > ```
+> 
+> ```
+
 
 ### Running the application
 
-### Runnign the application in a docker container
+### Running the application in a docker container
 
-### Buidling a basic React component
+### Building a basic React component
 
 
