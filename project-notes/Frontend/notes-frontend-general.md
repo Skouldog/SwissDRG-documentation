@@ -1,26 +1,26 @@
-# Frontend Notes
+# Frontend : Notizen und Erkentnisse
 
 ---
 
 &nbsp;
 
-## General Tools and Concepts used:
+## Generelle Konzepte und Begriffe:
 
-```HTML```: _Layout Language_
+```HTML```: _Layoutsprache_
 
-```Javascipt```: _Programming Language_
+```Javascipt```: _Programmiersprache_
 
-```Typescript```: _JavaScript Extension including Type-Safety_
+```Typescript```: _Erwiterung von JavaScript mit Typsicherheit_
 
-```JSX```: _JavaScript Extension allowing inline HTML and XML_
+```JSX```: _JavaScript Erweiterugn welche HTML und XML als Inline-Syntax erlaubt_
 
-```React```: _JavaScript Library for building user interfaces_
+```React```: _JavaScript Bibliothek zum Erstellen von UI_
 
-```vite```: _Build Tool for React (allows using JSX)_
+```vite```: _Build Tool für React (ermöglicht unter anderem die Verwendung von JSX)_
 
-```Node.js```: _JavaScript Runtime Environment (allows running JavaScript outside of a browser)_
+```Node.js```: _JavaScript Runtime Environment (erlaubt das ausführen von JavaScript ausserhalb eines Browsers)_
 
-```Docker```: _Containerization of Systems to allow for standardizing development environments_
+```Docker```: _Zur ausführung von Anwendungen in einem Container_
 
 &nbsp;
 
@@ -31,29 +31,33 @@
 
 ---
 
-### Requirement:
+### Anforderungen:
 
-The Frontend should be designed as a React component.
-This enables it to be reused and implemented in existing systems.
+Das Frontend soll als React Komponent entwickelt werden.
+Dadurch soll es möglich sein dieses Komponenten in anderen, bereits bestehenden Anwendungen zu verwenden.
 
-### What is React?
-> React is a JavaScript library for building user interfaces
+### Was ist React?
+> React ist im Grunde nur eine JavaScript Bibliothek, welche dazu gemacht wurde um Benutzeroberflächen zu erstellen
 > 
-> _React is a declarative, this means that your code is describing what
-the ui should look like. React then takes care of building and
-updating the actual UI._
+> _React ist a deklarativ, das heisst, der code beschreibt allein wie die UI aufgebaut sein soll.
+> React kümmert sich dann automatisch um den Build Prozess und das updaten der UI_
+> 
+> _neben JavaScript unterstützt React auch TypeScript_
+
+### Was wird benötigt, um eine simple React-App zu erstellen?
+- Die React Bibliothek selbst (entweder JavaScript oder TypeScript)
+- (Optional) Build Tool wie zb. *Vite* zur Verwendung von JSX anstelle von JS
+- Ein lokalen Webserver (Node.js)
 
 
-### What is needed to create a simple Demo-Application containing the developed frontend?
-- The React library itself (either JavaScript or TypeScript)
-- (Optional) build tool like *Vite* allowing to use JSX
-- A running webserver (Node.js)
+## React ohne Build Tool
 
+### Manuelles Erstellen einer Demo React-App
 
-### Demo Frotend erstellen mit React und vite
+Um eine React App zu erstellen, braucht man das Package-Manager Tool ``npm``.
+Dieses Tool ist in Node.js enthalten und muss in den meistne Fällen nicht extra installiert werden.
 
-```npm```: _Node Package Manager welcher in Node.js beinhalten ist_
-```npm -v ```: Überprüfen ob ```npm``` installiert ist
+Mit dem Befehl ```npm -v ```: Überprüfen ob ```npm``` installiert ist
 
 
 > Manuelles Erstellen eines React Projektordners:
@@ -62,6 +66,19 @@ updating the actual UI._
 > - In Projektordner navigieren: ```cd name```
 > - In diesem Projektordner den npm Package-Manager initialisieren: ```npm init -y```
 
+### Ausführen einer React App ohne Build Tool
+
+### React App ohne Build Tool in einem Docker Container ausführen
+
+### Komponenten erstellen
+
+
+
+
+
+## React mit ``vite``
+
+### Erstellen einer Demo React-App mit ```vite```
 
 Zwar ist es möglich, ein React Projekt manuell zu erstellen, jedoch 
 ist mit ```vite```bereits ein tool enhtalten um dies zu vereinfachen.
@@ -73,22 +90,41 @@ ist mit ```vite```bereits ein tool enhtalten um dies zu vereinfachen.
 > npm create vite@latest my-app
 > ```
 >
-> This will create a new folder called ```my-app``` containing the 
-> basic structure of a React application. 
+> Dadurch wird ein neuer Ordner mit den Namen ```my-app``` erstellt.
+> Dieser enthält dann direkt die standard Ordnerstruktur eines React Projekts.
 
-&nbsp;
+### Ausführen einer React App mit ``vite``
 
-> Typische Ordnerstruktur eines Rect Projekts:
-> 
-> ```
-> 
-> ```
+Um die React App auszuführen, muss man sich im Root Directory des Projekts befinden.
+Dort kann man nun mittels dem Befehl ```npm run dev``` die App in Entwicklungsansicht ausführen.
+
+Dabei sucht dann der Package-Manager ``npm`` nach der Infodatei des Projekts: ``package.json``.
+Dort ist neben der Dependency Liste auch vermerkt, welche scripts laufen sollen
+falls zb. ``npm run dev`` oder ``npm run build`` aufgerufen wird.
+
+Bei einer App die mit ``vite`` erstellt wurde, sind diese 
+Scripts bereits definiert, sodass ``npm run dev`` automatisch folgende Schritte ausführt:
+
+- ``npm`` startet ``vite``
+- ``vite`` transkribiert den JSX code in JavaScript.
+- ``vite`` startet den lokalen Webserver (node.js)
+- ``vite`` wartet auf Änderungen um die App neu zu transkribieren und zu starten.
+
+_``vite`` zeigt dabei den link zur lokalen App direkt in der Knsole an_
+
+Weiter kann die App mit dem Befehl ```npm run build``` kompiliert werden 
+und schliesslich mit dem Befehl ```npm run preview``` gestartet werden.
 
 
-### Running the application
+### React App mit ``vite`` in einem Docker Container ausführen
 
-### Running the application in a docker container
 
-### Building a basic React component
+
+
+
+
+
+
+### Komponenten erstellen
 
 
