@@ -7,7 +7,10 @@
 ```[03.03.26|Uni] - Sitzung intern (Iteration und Aufgaben Besprechen)```
 
 > Phase 1: Planen, einlesen und Projekt verstehen.
-> 
+> - Birk: React & evtl. Docker
+> - Carlo: Docker & Ruby on Rails
+> - Elia: Docker & Ruby
+> - Tom: Ruby & Backend verstehen
 > 
 
 ``[10.03.26|10:15-12:00|Engehalde-Raum004] - Sitzung intern (Herangehesweisen besprechen, Feedback & Phase 2 besprechen)``
