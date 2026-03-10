@@ -1,6 +1,9 @@
-# Statusbericht 1
-Das erste Kundengespräch verlief gut. Da es bisher noch keine Abgaben gab, konnten wir noch in nicht in Verzug geraten :))
-Die Anforderungen für die erste Iteration wurden festgelegt und es ist klar, was wir bis zum nächsten Kundenmeeting zu tun haben.
+# Statusbericht 2
+Das erste Teammeeting verlief gut, denn diejenigen, welche sich in Rails/Docker/ React eingelesen haben konnten den anderen eine gute Übercicht geben. 
+
+Wir konnten das Github projekt mit den unterschiedlichen Docker bei allen Mitgliedern zum laufen bringen und alle wissen woran sie bis nächste Woche arbeiten müssen.
+
+
 
 
 ```
@@ -21,4 +24,3 @@ Die Anforderungen für die erste Iteration wurden festgelegt und es ist klar, wa
         ╰─────╯
 ```
 ___________
-
