@@ -33,3 +33,10 @@ Momentan gibt es zwei Anlaufstellen
 `localhost:3000/api/egins` GET : liefert ein JSON mit allen Egins (id, title, filename) zurück.
 
 `localhost:3000/api/filters` POST : empfängt ein JSON (egin_id, workspace_id, logik/string) und (momentan) gibt als JSON wieder zurück. Später dann weiterverarbeitung
+
+## Test
+
+---
+
+Wenn ihr die DB aufgesetzt habt und die Datei erstellt/richtig benannt, dann könnt ihr den Docker starten und `localhost:3000/api/egins`
+eingeben, dann solltet ihr eine Liste zurückerhalten mit den EGIN einträgen (momentan nur 1 Eintrag).
