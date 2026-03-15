@@ -16,7 +16,7 @@ Erstelle den Ordner `egins` damit du am Ende den Pfad `storage/egins/` hast.
 Hier speicherst du die Egins. ~~Momentan reicht es wenn du einfach eine leere Datei Namens `TEST1.CSV` erstellst.~~
 Downloade alle 3 Egins und lege sie in den Ordner.
 > Wenn du die Testfile schonhattest, wäre es auch nicht schlecht die DB zu reseten um die alten Einträge und verknüpfungen zu löschen
-> führe dazu den Befehl `docker-compose run --rm backend rails db:reset` aus. Er löscht, erstellt und führt seeds aus. Du musst danach nichts mehr machen.
+> führe dazu den Befehl `docker-compose run --rm backend rails db:seed` aus. Er löscht, erstellt und führt seeds aus. Du musst danach nichts mehr machen.
 
 Danach kannst du den Befehl 
 ```ruby
