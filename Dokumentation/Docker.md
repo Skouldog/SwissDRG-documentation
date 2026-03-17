@@ -3,7 +3,7 @@
 ## 1. Start
 Bevor man mit dem Coden beginnt immer schauen, dass man in git im richtigen branch ist un auf dem korrekten Stand. Danach den container starten: 
 
-**docker-compose up**
+**docker-compose up bzw mit docker-compose up --build**
 
 Logs können in der Docker Desktopanwendung angeschaut werden. 
 
