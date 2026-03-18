@@ -5,6 +5,10 @@ Bevor man mit dem Coden beginnt immer schauen, dass man in git im richtigen bran
 
 **docker-compose up bzw mit docker-compose up --build**
 
+Falls man das Repo neu auf seinen PC cloned, dann muss man initial (falls Vite einen error code erzeugt) diesen command im terminal eingeben:
+
+**docker-compose run frontend npm install**
+
 Logs können in der Docker Desktopanwendung angeschaut werden. 
 
 ## 2. Wo wird programmiert?
