@@ -43,7 +43,7 @@ oder ein Beispiel für models:
 
 **docker-compose run --rm backend rails generate model Patient first_name:string last_name:string birth_date:date insurance_number:string**
 
-### 4. Troubleshooting 
+## 4. Troubleshooting 
 
 Falls die Website nicht lädt oder Docker "spinnt", hilft meistens ein kompletter Neustart:
 
@@ -58,4 +58,16 @@ Datenbank-Reset (Notfall): **docker-compose run --rm backend rails db:prepare**
 ## 5. Container wieder beenden
 
 Container können mir **STRG+C oder control+C** sowie mit **docker-compose stop** wieder beendet werden. 
+
+## 6. DLS Server implementieren
+
+Um den DLS server zu implementieren, muss man diesen zuerst als .tar file von SwissDRG cloud herunterladen. Das file heisst: drg-language-server-1-1-1.tar
+
+Danach kann man im Terminal diesen Befehl eingeben: **docker load -i drg-language-server-1-1-1.tar**
+
+Falls das nicht klappt, muss man in den ordner navigieren wo die .tar Datei liegt, also **cd Downloads** oder so
+
+Wenn es geklapt hat, kann man die .tar Datei wieder löschen, das ist auch zu empfehlen da sie ziemlich gross ist. Zum Überprüfen, ob es geklappt hat kann man **docker images** eingeben und dann sollte etwa so etwas da stehen: **gitlab.swissdrg.local:6789/swissdrg/drg-language-server/staging:1.1.1**
+
+Danach muss man nur noch in den branch implement-DLS wechseln und dann **docker-compose up** eingeben und dann sollte man auf http://localhost:8787/ etwas angezeigt sehen, also einfach nicht 404 not found. Alternativ sollte man mit diesem Befehl: **curl -I http://localhost:8787/batch_evaluate** im Terminal einen code 200 bekommen.
 
