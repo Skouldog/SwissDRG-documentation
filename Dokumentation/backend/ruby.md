@@ -43,3 +43,15 @@ Momentan gibt es zwei Anlaufstellen
 
 Wenn ihr die DB aufgesetzt habt und die Datei erstellt/richtig benannt, dann könnt ihr den Docker starten und `localhost:3000/api/egins`
 eingeben, dann solltet ihr eine Liste zurückerhalten mit den EGIN einträgen (momentan nur 1 Eintrag).
+
+
+
+curl -X POST http://localhost:3001/api/filters \
+-H "Content-Type: application/json" \
+-d '{
+"filter": {
+"workspace_id": 1,
+"egin_id": 1,
+"logic_term": "SRG IN TABLE( GFA2120NO )"
+}
+}'
