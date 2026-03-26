@@ -44,6 +44,13 @@ Momentan gibt es zwei Anlaufstellen
 Wenn ihr die DB aufgesetzt habt und die Datei erstellt/richtig benannt, dann könnt ihr den Docker starten und `localhost:3001/api/egins`
 eingeben, dann solltet ihr eine Liste zurückerhalten mit den EGIN einträgen (momentan nur 1 Eintrag).
 
+## DLS-Server
+
+Der DLS Server ist nun im Backend implementiert. Die Anleitung wie man diesen Server installiert ist in der Docker Anleitung zu finden.
+Dass der Server mit dem Backend kommunizieren kann ist im Docker-Compose geregelt. Es sind auch alle API Schnittstellen Implementiert so, 
+dass das Backend dem DLS server Anfragen senden kann und der Server kann selber Anfragen zurück schicken, wenn er gewisse EGINS oder Workspaces nicht gecashed hat. 
+Diese APIs wurden so implementiert wie in der Dokumentation von Lukas beschrieben (eginrepl-dsl-api.md). Die IDs die zurück geschickt werden sind in filters_controller zu finden. 
+
 
 
 
