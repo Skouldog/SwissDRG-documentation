@@ -33,25 +33,17 @@ Siehe `db/migrate/seeds.rb` was genau passiert.
 
 Momentan gibt es zwei Anlaufstellen 
 
-`localhost:3000/api/egins` GET : liefert ein JSON mit allen Egins (id, title, filename) zurück.
+`localhost:3001/api/egins` GET : liefert ein JSON mit allen Egins (id, title, filename) zurück.
 
-`localhost:3000/api/filters` POST : empfängt ein JSON (workspace_id, egin_id, logik/string) und (momentan) gibt als JSON wieder zurück. Später dann weiterverarbeitung
+`localhost:3001/api/filters` POST : empfängt ein JSON (workspace_id, egin_id, logik/string) und (momentan) gibt als JSON wieder zurück. Später dann weiterverarbeitung
 
 ## Test
 
 ---
 
-Wenn ihr die DB aufgesetzt habt und die Datei erstellt/richtig benannt, dann könnt ihr den Docker starten und `localhost:3000/api/egins`
+Wenn ihr die DB aufgesetzt habt und die Datei erstellt/richtig benannt, dann könnt ihr den Docker starten und `localhost:3001/api/egins`
 eingeben, dann solltet ihr eine Liste zurückerhalten mit den EGIN einträgen (momentan nur 1 Eintrag).
 
 
 
-curl -X POST http://localhost:3001/api/filters \
--H "Content-Type: application/json" \
--d '{
-"filter": {
-"workspace_id": 1,
-"egin_id": 1,
-"logic_term": "SRG IN TABLE( GFA2120NO )"
-}
-}'
+
