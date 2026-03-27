@@ -51,6 +51,9 @@ Dass der Server mit dem Backend kommunizieren kann ist im Docker-Compose geregel
 dass das Backend dem DLS server Anfragen senden kann und der Server kann selber Anfragen zurück schicken, wenn er gewisse EGINS oder Workspaces nicht gecashed hat. 
 Diese APIs wurden so implementiert wie in der Dokumentation von Lukas beschrieben (eginrepl-dsl-api.md). Die IDs die zurück geschickt werden sind in filters_controller zu finden. 
 
+## Logs anschauen
+Um die Logs des Backend anzuschauen kann man nebem dem Terminal-Tab in dem Docker läuft, einen zweites Tab öffnen und diesen CMD eingaben: `docker compose logs -f backend`. Dann sieht man die Logs, zum Beispiel auch ob der DLS Server etwas cashed.
+
 
 
 
