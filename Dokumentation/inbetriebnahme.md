@@ -60,20 +60,22 @@ docker-compose run --rm backend rails db:schema:load db:seed
 ## 6. Zugriff und Verifizierung
 Nach dem Start sind die Dienste unter folgenden Adressen erreichbar:
 
-Frontend: [http://localhost:3001] (Änderungen werden sofort angezeigt).
+Frontend: **http://localhost:3001** (Änderungen werden sofort angezeigt)
 
-Backend: [http://localhost:3000].
+Backend: **http://localhost:3000**
 
-DLS Server: [http://localhost:8787].
+DLS Server: **http://localhost:8787**
 
 Test der API
-Rufen Sie [http://localhost:3001/api/egins]. auf. Sie sollten ein JSON mit den EGIN-Einträgen erhalten.
+Rufen Sie **http://localhost:3001/api/egins** auf. Sie sollten ein JSON mit den EGIN-Einträgen erhalten.
 Zudem können Sie den DLS Server prüfen:
 
 ```bash
 curl -I http://localhost:8787/batch_evaluate
 ```
 Ein Code 200 bestätigt die korrekte Funktion.
+
+**Das Funktioniert nur wenn die Docker-Container am laufen sind**
 
 ## 7. Wichtige Befehle für den Betrieb
 Logs einsehen
