@@ -21,3 +21,14 @@ docker-compose exec backend bundle exec rails test test/services/download_csv_se
 ```
 
 Wenn ein grüner Punkt steht, war der Test erfolgreich, falls ein F steht nicht.
+
+Nach dem Test muss man zurück in den development Modus wechseln:
+
+```bash
+docker-compose exec backend bin/rails db:environment:set RAILS_ENV=development
+```
+Falls das nicht genügt hat, muss man noch: 
+
+```bash
+docker-compose run --rm backend rails db:schema:load db:seed
+```
