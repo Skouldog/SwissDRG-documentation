@@ -35,3 +35,54 @@ on the table shading and button availability.
 
 The hook which handles backend requests, as well as the hook that handles shortcuts for handling 
 resultData states are adjusted, so they set the state accordingly.
+
+&nbsp;
+
+&nbsp;
+
+## Feature: Implementing patient links in the table
+
+---
+
+### Approach:
+
+To make the line elements in the result table clickable, there where 2 main options:
+
+&nbsp;
+
+
+> #### -> 1) make the entire line element (ResultElement.tsx) clickable using `onClick`
+> allows to make the entire row element clickable as one object.
+
+&nbsp;
+
+> #### -> 2) make the results clickabe using `<a>...</a>` and setting the link using `href`
+>
+> Since the `table`element can not contain `<a>` directly, it is not possible to set the link on a entire row at once.
+> As a alternative approach we could make each cell in a table clickabe, and then make the row element (ResultElement.tsx)
+> assign the same `href` link to all its cells.
+> This way each cell in the same row would link to the same url.
+
+At first option 1 seems very simple. But there is one big disadvantage.
+
+Because our customer is using this patient links to look up data and link to patiants, it might be very usefull to use option 2. 
+It allows the renderer of the React app to recognize that this is a link. 
+Assuming this React component is rendered in a Browser or similar framework, this enables the following things:
+- right click and copy url
+- right click and open in new window
+- right click and add to favorites
+
+With option 1, this is not directly possible, since the actual linking does not happen in the upfront layer, but is abstracted using hooks for example.
+
+### Implementation:
+
+For now i have implemented the second option.
+Every cell has now a link corresponding to the patient.
+This link is the same in ever cell of a line.
+
+The base URL is set in the .env file as a environement constant.
+It then gets extended with the patient id and set as link.
+
+
+
+
