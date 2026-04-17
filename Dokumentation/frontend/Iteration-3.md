@@ -3,6 +3,14 @@
 ---
 
 
+
+
+
+
+
+
+
+
 &nbsp;
 
 ## Feature: Implementing error message display
@@ -35,6 +43,19 @@ on the table shading and button availability.
 
 The hook which handles backend requests, as well as the hook that handles shortcuts for handling 
 resultData states are adjusted, so they set the state accordingly.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 &nbsp;
 
@@ -85,4 +106,52 @@ It then gets extended with the patient id and set as link.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+&nbsp;
+
+&nbsp;
+
+## Feature: Implementing a upgraded page navigation panel
+
+---
+
+In general the new page navigation panel needs to have the previously implemented buttons "previous", "next" as
+well as row list of direct buttons for all the pages.
+
+If not all buttons fit, the ones in the middle get replaced wth a "..." button instead.
+If clicked, this should open a small dialog to enable direct page access by a entered number.
+
+### Implementation
+
+To simplify the structure, the "prev" and "next" buttons where refactored to be included directly inside of the 
+navigationpanel component.
+
+The pagelist component in between those buttons was added. It contains all the code for rendering the direct page buttons.
+If a direct page link is clicked, it directly gets loaded. If howver, the "..." button gets clicked, a small
+dialog popup appears to entera direct number using a number input.
+
+This can be changed if necessary, but currently, this is implemented using the html dialog element as well as some css styling.
+
+
+### Additional Refactoring
+
+The first additional refactoring was made to unify the button styles.
+Now there are 2 button styles in the project: "buttonDark" and "buttonBlue"
+These are now in src/styles and can be used everywhere. This enables changes to be made in a central place.
+-> The button styles are a template, but properties like "border-radius" can be customized on each usage.
+-> for this the classname can be defined as following {classname"buttonDark custombuttonstyle"} : this will apply both styles
+
+Similarly, this was done with styles for Selectors and Inputs as well.
+
+As a bonus, the Dialog style was upgraded with keyframes and a small fadeout handler to allow for smooth transitions.
 
