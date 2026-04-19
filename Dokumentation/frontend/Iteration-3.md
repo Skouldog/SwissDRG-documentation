@@ -155,3 +155,61 @@ Similarly, this was done with styles for Selectors and Inputs as well.
 
 As a bonus, the Dialog style was upgraded with keyframes and a small fadeout handler to allow for smooth transitions.
 
+
+
+&nbsp;
+
+&nbsp;
+
+## Resize
+
+---
+
+_Documetnation not completed_
+
+
+
+&nbsp;
+
+&nbsp;
+
+## Performance show
+
+---
+
+_Documetnation not completed_
+
+
+
+
+
+&nbsp;
+
+&nbsp;
+
+## Sorting implementation
+
+---
+
+To tell the backend what how it should sort the data, a single additional parameter is added to the json in the request.
+> ... , sorting: { key: ####, direction: #### }, ...
+
+Inside the sorting parameter, there are 2 subParameters: `key` is the name of the column which 
+should be used to sort the results, while `direction` can either be "asc" or "desc".
+
+A few examples of how this will look:
+
+> {filter: {workspace_id: 1 ,egin_id: 1, logic_term: "srg in table ( gfa2120no )", per_page: 10, page: 1, sorting: {key: "age", direction: "asc"}}}
+>
+> {filter: {workspace_id: 1 ,egin_id: 1, logic_term: "srg in table ( gfa2120no )", per_page: 10, page: 1, sorting: {key: "age", direction: "desc"}}}
+
+
+---
+
+To enable the frontend to send back sorting parameters to the backend, the following steps were taken:
+
+expand inout parameters by 2 extra propperties: sorting key and sorting direction.
+this was done by creating a single new field called "sorting_config".
+This in itself contains the key and the direction.
+
+Adjust backend request hook to include this parameter in the request if it is defined.
