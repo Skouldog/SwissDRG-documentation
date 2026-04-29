@@ -1,22 +1,21 @@
-# Kurze interne Besprechung 27.04.26
-
+# Protokoll 8. Sitzung (Intern, 27.4.2026)
+> Sitzungsleiter: Elia, Protokollant: Tom
 ---
 
 
-Als Erstes wurden kurz einige kleien Probleme auf einzelenen Geräten der Gruppe behoben. Im anschluss wurden die 
-finalen merge-commits getaged mit "v3.0" sodass mit der Implementationsphase der 4ten Iteration begonnen werden kann.
+## Allgemeines & Status
 
-Dazu haben wir die individuell vorbereiteten Herangehensweisen kurz verglichen und besprochen.
-Dabei wurden folgende Dinge bestimmt:
+- Einzelne Probleme auf lokalen Geräten behoben
+- Finalen merge-commits getaged mit "v3.0" , wodurch die 4ten Iteration begonnen hat.
+- Heransgehenweise abgleichen und letzte Iteration planen
 
 
-### API
+
+
 
 ---
-
-Die Api die das Backend zur Verfügung stellt, wird erweitert um den Anforderungen der 4ten Iteration gerecht zu werden.
-
-Die API Schnittstelle sieht ab jetzt wie folgt aus:
+### API Änderungen
+Api vom Backend wird erweitert um Admin Konsole zu unterstützen.
 
 ```
 /workspaces
@@ -53,8 +52,10 @@ Wir starten die Implementierung direkt und Arbeiten an folgenden Features:
 - Backend : Cache limit implementieren
 - Backend : Parsing implementieren
 - Backend : Refactoring etc.
+- Backend : Admin Features bereitstellen
 
-\+ Teststrategie
+### Teststrategie
 
+Zudem wird diese Interation Stress Test mithilfe von K6 implementiert und End-to-End Tests ausgeführt.
 
 

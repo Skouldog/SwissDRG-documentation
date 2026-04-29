@@ -1,6 +1,6 @@
 # Protokoll 7. Sitzung (3. Kundenmeeting, 21.4.2026)
 > Sitzungsleiter: Birk, Protokollant: Elia
->
+> Letzte Woche gab es kein Meeting (14.4) -> Kein Protokoll
 
 
 Demo der Iteration 3
