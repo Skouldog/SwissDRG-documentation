@@ -137,7 +137,7 @@ To simplify the structure, the "prev" and "next" buttons where refactored to be 
 navigationpanel component.
 
 The pagelist component in between those buttons was added. It contains all the code for rendering the direct page buttons.
-If a direct page link is clicked, it directly gets loaded. If howver, the "..." button gets clicked, a small
+If a direct page link is clicked, it directly gets loaded. If however, the "..." button gets clicked, a small
 dialog popup appears to entera direct number using a number input.
 
 This can be changed if necessary, but currently, this is implemented using the html dialog element as well as some css styling.
@@ -157,15 +157,38 @@ As a bonus, the Dialog style was upgraded with keyframes and a small fadeout han
 
 
 
-&nbsp;
+
+
+
+
+
+
+
 
 &nbsp;
 
-## Resize
+&nbsp;
+
+## Feature: Dynamic resizing
 
 ---
 
-_Documetnation not completed_
+In order to implement the resizability of the react component, the process turned pout quite simple.
+Most of our ui structure was already build with realtive styling in mind. This allowed a simple transition.
+
+
+The only issue that arose from changing the root component to dynamic size, was that the page navigation panel 
+had a small bug with re-rendering. 
+
+With another small fix this was completed with limited code changes. 
+
+
+
+
+
+
+
+
 
 
 
@@ -173,11 +196,18 @@ _Documetnation not completed_
 
 &nbsp;
 
-## Performance show
+## Feature: Performance display
 
 ---
 
-_Documetnation not completed_
+Just like the resize feature, implementing the time measurement was done with only small changes.
+In addition to the hhtp request handling only the string 
+
+
+
+
+
+
 
 
 
@@ -187,7 +217,7 @@ _Documetnation not completed_
 
 &nbsp;
 
-## Sorting implementation
+## Feature: Sorting implementation
 
 ---
 
@@ -208,8 +238,11 @@ A few examples of how this will look:
 
 To enable the frontend to send back sorting parameters to the backend, the following steps were taken:
 
-expand inout parameters by 2 extra propperties: sorting key and sorting direction.
+expand input parameters by 2 extra propperties: sorting key and sorting direction.
 this was done by creating a single new field called "sorting_config".
 This in itself contains the key and the direction.
 
 Adjust backend request hook to include this parameter in the request if it is defined.
+
+To make the headers of the result table control this sorting property, a new headerElement was created.
+This is in its core just a Button based on the global button style with some of its obvious button styling removed.
