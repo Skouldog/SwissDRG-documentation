@@ -1,27 +1,30 @@
 
 # Table of Contents
 
-1.  [Sequenzdiagramm](#org76cbc78)
-2.  [API EginRepl](#org507ef1f)
-    1.  [Egin-Anfrage](#orgb332d7c)
-    2.  [Workspace-Anfrage](#orgbeaedee)
-3.  [API DrgLanguageServer](#orgdd11d5f)
-    1.  [Evaluate an Egin](#orgdbb72bf)
+1.  [Sequenzdiagramm](#orgaa9514f)
+2.  [API EginRepl](#orgdcb42aa)
+    1.  [Egin-Anfrage](#org0871116)
+    2.  [Workspace-Anfrage](#orga58409e)
+3.  [API DrgLanguageServer](#orgfd843ee)
+    1.  [Evaluate an Egin](#org15792e7)
+    2.  [Parse a logic expression:](#orgba952e8)
+
+DLS-Version: 1.3.1
 
 
-<a id="org76cbc78"></a>
+<a id="orgaa9514f"></a>
 
 # Sequenzdiagramm
 
-![img](eginrepl-dls-seqdiagr.png)
+![img](test.png)
 
 
-<a id="org507ef1f"></a>
+<a id="orgdcb42aa"></a>
 
 # API EginRepl
 
 
-<a id="orgb332d7c"></a>
+<a id="org0871116"></a>
 
 ## Egin-Anfrage
 
@@ -52,7 +55,7 @@ Response:
     > &#x2026;
 
 
-<a id="orgbeaedee"></a>
+<a id="orga58409e"></a>
 
 ## Workspace-Anfrage
 
@@ -85,12 +88,12 @@ Response:
     > content-type: application/zip
 
 
-<a id="orgdd11d5f"></a>
+<a id="orgfd843ee"></a>
 
 # API DrgLanguageServer
 
 
-<a id="orgdbb72bf"></a>
+<a id="org15792e7"></a>
 
 ## Evaluate an Egin
 
@@ -136,4 +139,23 @@ Example Response (that found matching patients):
     < Server: Jetty(9.4.48.v20220622)
     <
     ["55176360","55176838","55176882",...]
+
+
+<a id="orgba952e8"></a>
+
+## Parse a logic expression:
+
+    GET /parse?expression=SRG%20IN%20TABLE%28%20GFA2120NO%20%29
+
+Params:
+
+-   expression [String], required; logical expression to evaluate
+
+Example:
+
+    curl -v  http://localhost:8787/parse?expression=SRG%20IN%20TABLE%28%20GFA2120NO%20%29
+
+Example with invalid expression:
+
+    curl -v  http://localhost:8787/parse?expression=SRG%20IN%20TABLLLE%28%20GFA2120NO%20%29
 
