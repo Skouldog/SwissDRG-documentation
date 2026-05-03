@@ -6,16 +6,21 @@ Docker & Docker Desktop: Stellen Sie sicher, dass Docker auf Ihrem System instal
 
 Git-Stand: Bevor Sie beginnen, stellen Sie sicher, dass Sie sich im richtigen Branch befinden und den aktuellen Stand des Repositories geladen haben.
 
-DLS Server Datei: Laden Sie die Datei **drg-language-server-1-1-1.tar** von der SwissDRG Cloud herunter.
+DLS Server Datei: Laden Sie die Datei **drg-language-server-1-3-1.tar** von der SwissDRG Cloud herunter.
 
 ## 2. Vorbereitung der Container-Images
 DLS Server implementieren:
 Der DLS Server muss als Docker-Image geladen werden. Navigieren Sie im Terminal in den Ordner, in dem die .tar-Datei liegt, und führen Sie den folgenden Befehl aus:
 
 ```bash
-docker load -i drg-language-server-1-1-1.tar
+docker load -i drg-language-server-1-3-1.tar
 ```
 Nach erfolgreichem Import kann die .tar-Datei gelöscht werden.
+
+nach dem Import sollte das Image noch neu getagged werden, so dass docker-compose sicher das richtige image findet: 
+```bash
+docker tag 2647b66ebcd7 gitlab.swissdrg.local:6789/swissdrg/drg-language-server/staging:1.3.1
+```
 
 ## 3. Lokale Verzeichnisstruktur und Daten
 Die Datenbank verknüpft Einträge mit lokalen Dateien, weshalb eine spezifische Ordnerstruktur im Projektverzeichnis benötigt wird.
