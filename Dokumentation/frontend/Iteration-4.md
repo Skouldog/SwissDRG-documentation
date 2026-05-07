@@ -17,7 +17,7 @@
 
 &nbsp;
 
-## Refactoring the SessionData and context sharing
+## Feature: Refactoring the SessionData and context sharing
 
 ---
 
@@ -142,9 +142,64 @@ This fixes the issue of React using batched state writes, while the request migh
 
 &nbsp;
 
-## feature Admin Page
+## Feature: Admin Page
+
+---
+
+### Refactoring the structure to feature second separate page
 
 The admin Page itself is built as a separate react component.
+To separate the admin comonent from the already build ui component, the structure was furthere refactored.
+Now the structure looks as follows:
+
+>```
+> src
+> |-- pages
+> |   |-- searchUI  (ui as it was before)
+> |   |   |-- components    (ui components as it was before)
+> |   |   |-- hooks         (hooks from before (were all specific to ui))
+> |   |   |-- types         (currrently empty since previous types are currently shared)
+> |   |   |-- util          (currrently empty since previous util are currently shared)
+> |   |
+> |   |-- searchAdmin   (component representing the admin page in the future)
+> |       |-- hooks
+> |       |-- types
+> |       |-- util
+> |
+> |-- shared        (different hooks, styles, types etc, which are not specific to either ui, or admin page)
+> |   |-- hooks 
+> |   |-- styles
+> |   |-- types
+> |   |-- utils
+> |
+> |-- App.tsx (serves as the launcher showing component based on url)
+>
+>```
+
+Aditionally shortcuts for paths where added. This allows to use:
+`@shared` instead of `src/shared`
+`@searchUI` instead of `src/pages/searchUI`
+`@searchAdmin` instead of `src/pages/searchAdmin`
+
+These have been used to mostly replace relative paths on imports. 
+(some relative paths still exist, but this is generally ok in most cases for directly dependent files)
+
+
+The routing was set up using the `react-router-dom` dependency. 
+The configuration now shows the normal ui just as before. 
+However, upon adding "/admin" to the url, the admin page gets loaded.
+
+Small sidenote: the compose.yml file had to be edited because even though the dependency
+was loaded by the docker build, it was then overwritten by whatever was in the node-modules folder on
+the device the person was running the build command.
+This basically broke new dependecies if docker containers were not deleted before rebuild.
+
+With the updated file, docker only uses the src folder from the project files in building. Anything else 
+is built by the dockerfile instructions.
+
+
+### Implementing the admin page
+
 For this the following features need to be implemented:
 
 > manage workspaces
