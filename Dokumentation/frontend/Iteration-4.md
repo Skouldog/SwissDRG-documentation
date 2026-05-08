@@ -210,6 +210,21 @@ For this the following features need to be implemented:
 
 
 
-refactor
-hooks
-adminpanel
+
+
+
+
+## Feature: implemented input verification in frontend
+
+Two hooks were created: 'useInputVerification' and "useInputVerificationService'.
+
+The verification service is basically a wrapper around the parse request that also checks if an 
+Egin and Workspace are actually selected before bothering the backend.
+-> _There's a debounced version so the backend doesn't get spammed on every keystroke._
+
+All the 'setUpToDate(false) calls that were spread across the input components got ripped out and replaced 
+with one central 'useInputChangeHandler hook.
+It listens to filter changes in 'InputPanel' and takes care of marking results as outdated, resetting 
+verification, and kicking off the debounced check.
+
+The Search and Download buttons now get disabled when the input isn't verified or data is still loading.
