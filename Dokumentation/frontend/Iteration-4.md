@@ -198,7 +198,42 @@ With the updated file, docker only uses the src folder from the project files in
 is built by the dockerfile instructions.
 
 
-### Implementing the admin page
+### Implementing global dialog layer
+
+Since dialogs will not only be used by the pagelist, but rather be used 
+for various inputs in the admin page, the dialog handling was rehauled.
+
+Now the dialog get injected at the top component of `searchUI` or `searchAdmin`.
+They are now available for any component using a context provided by `DialogProvider`.
+
+Using a dialog is now very simple and can be done like in the following example:
+
+> ```tsx
+> //import the Dialog Context from the DialogProvider
+> import {useDialog} from "@shared/contexts/DialogProvider.tsx";
+> 
+> //make the dialog Hooks accessible inside the current component
+> const { openFileUploadDialog, openConfirmDialog, openNumberInputDialog } = useDialog()
+>
+> //---------------------------------------------------------------------------------------- 
+> 
+> //prompt the user with a confirm dialog
+> openConfirmDialog("DialogTitle", "DialogText", () => {onCancel()}, () => {onConfirm()})
+> 
+> //prompt the user with a confirm dialog
+> openNumberInputDialog("DialogTitle", "DialogText", min, max, () => {onCancel()}, (number:number) => {onConfirm(number)})
+> 
+> //prompt the user with a confirm dialog
+> openFileUploadDialog("DialogTitle", "DialogText", ".txt", () => {onCancel()}, (file:File) => {onConfirm(file)})
+>
+> ```
+
+
+### Implementing hooks to handle admin requests
+
+....
+
+### Implementing the admin page layout
 
 For this the following features need to be implemented:
 
@@ -228,3 +263,4 @@ It listens to filter changes in 'InputPanel' and takes care of marking results a
 verification, and kicking off the debounced check.
 
 The Search and Download buttons now get disabled when the input isn't verified or data is still loading.
+
