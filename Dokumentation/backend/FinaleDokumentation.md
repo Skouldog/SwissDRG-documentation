@@ -96,19 +96,12 @@ No other software needs to be installed on the host machine — Ruby, Node.js, a
 
 Before deploying, ensure you have the following files available:
 
-| File | Description |
-|---|---|
-| `drg-language-server-1-1-1.tar` | DLS Server Docker image (provided by SwissDRG) |
-| EGIN CSV file(s) | Patient dataset files to upload |
-| Workspace ZIP file(s) | Workspace definition files to upload |
+| File                            | Description |
+|---------------------------------|---|
+| `drg-language-server-1-3-1.tar` | DLS Server Docker image (provided by SwissDRG) |
+| EGIN CSV file(s)                | Patient dataset files to upload |
+| Workspace ZIP file(s)           | Workspace definition files to upload |
 
-### Hardware Recommendations
-
-| Resource | Minimum | Recommended |
-|---|---|---|
-| CPU | 2 cores | 4 cores |
-| RAM | 4 GB | 8 GB |
-| Disk | 20 GB | 50 GB+ (depends on dataset size) |
 
 ---
 
@@ -119,7 +112,7 @@ Before deploying, ensure you have the following files available:
 The DLS Server image is distributed as a `.tar` file and must be loaded into Docker before the first start.
 
 ```bash
-docker load -i drg-language-server-1-1-1.tar
+docker load -i drg-language-server-1-3-1.tar
 ```
 
 Verify the image was loaded:
@@ -168,7 +161,6 @@ docker compose exec backend rails db:seed
 | Frontend loads | Open http://localhost:3002 in a browser |
 | Backend API responds | `curl http://localhost:3001/up` → should return `200 OK` |
 | EGIN list endpoint | `curl http://localhost:3001/api/egins` → should return `[]` |
-| DLS Server responds | `curl -I http://localhost:8787/batch_evaluate` → should return `200` |
 
 ### Step 6 — Upload Initial Data
 
@@ -200,11 +192,7 @@ The following environment variables can be set in `docker-compose.yml` under the
 |---|---|---|
 | `RAILS_ENV` | `development` | Rails environment (`development` or `production`) |
 | `DATABASE_URL` | `postgres://...` | PostgreSQL connection string |
-| `DEBUG_PERFORMANCE_TIME` | `true` | Logs query timing to backend console |
-| `READER_MODE` | `parquet` | Data reading mode: `parquet` (recommended), `duckdb`, or `ruby_csv` |
 | `SOLID_QUEUE_IN_PUMA` | (unset) | Run background job worker inside the web process (not recommended in production) |
-| `WEB_CONCURRENCY` | `1` | Number of Puma worker processes |
-| `JOB_CONCURRENCY` | `1` | Number of background job threads |
 | `RAILS_MASTER_KEY` | (required in production) | Decrypts Rails credentials; keep secret |
 
 ### Cache Size Limits
@@ -457,16 +445,20 @@ Content-Type: application/json
   "page": 1,
   "per_page": 50,
   "query_hash": "d41d8cd98f00b204...",
-  "source": "dls"
+  "source": "dls",
+  "total_duration": 3000,
+  "server_cache_duration": 140
 }
 ```
 
-| Field | Description |
-|---|---|
-| `data` | Array of patient rows for the current page |
-| `total_count` | Total number of matching patients |
-| `query_hash` | Use this hash to download results as CSV |
-| `source` | `dls` = fresh result from DLS Server; `cache` = returned from cache |
+| Field                    | Description                                                                         |
+|--------------------------|-------------------------------------------------------------------------------------|
+| `data`                   | Array of patient rows for the current page                                          |
+| `total_count`            | Total number of matching patients                                                   |
+| `query_hash`             | Use this hash to download results as CSV                                            |
+| `source`                 | `dls` = fresh result from DLS Server; `cache` = returned from cache                 |
+| `total_duration`         | Total Time of the User request (DLS and Application).                               |
+| `server_chache_duration` | Time needed to read IDs out of the Cache/ Time the DLS Server took to generate IDs. |
 
 **Response `404`:** EGIN or workspace not found.  
 **Response `500`:** DLS Server error or expression evaluation failure.
@@ -570,6 +562,12 @@ Content-Type: application/json
 
 `max_threads` must be an integer ≥ 1.
 
+`max_threads` only changes the number of Puma Threads. The asynchron Download (GoodJob) requieres a flat 1 Thread. 
+
+`Total Threads = max_threads + 1`
+
+
+
 **Response `200`:** Updated value.  
 **Response `422`:** Invalid value.
 
@@ -597,10 +595,6 @@ Content-Type: application/json
 
 The PostgreSQL database runs inside Docker and is not exposed on a host port by default.
 
-Access the database console:
-```bash
-docker compose exec db psql -U postgres -d app_development
-```
 
 ### Running Migrations
 
@@ -615,25 +609,6 @@ To check migration status:
 docker compose exec backend rails db:migrate:status
 ```
 
-### Backup
-
-To create a database backup:
-
-```bash
-docker compose exec db pg_dump -U postgres app_development > backup_$(date +%Y%m%d).sql
-```
-
-To restore from a backup:
-
-```bash
-cat backup_20260101.sql | docker compose exec -T db psql -U postgres -d app_development
-```
-
-**Also back up the `storage/` directory**, which contains all uploaded files:
-
-```bash
-tar -czf storage_backup_$(date +%Y%m%d).tar.gz storage/
-```
 
 ---
 
@@ -679,29 +654,6 @@ docker compose restart worker
 docker compose restart frontend
 ```
 
-### Updating the Application
-
-When a new version of the application is released:
-
-1. Pull the latest code:
-   ```bash
-   git pull
-   ```
-
-2. Rebuild containers:
-   ```bash
-   docker compose build
-   ```
-
-3. Start updated containers:
-   ```bash
-   docker compose up -d
-   ```
-
-4. Run any new database migrations:
-   ```bash
-   docker compose exec backend rails db:migrate
-   ```
 
 ### Clearing All Caches
 
@@ -753,35 +705,8 @@ docker compose logs backend
 
 ---
 
-### DLS Server not reachable
 
-**Symptom:** Filter queries return 500 errors; backend logs show connection refused to `dls-server:8787`.
 
-**Check:**
-```bash
-docker compose ps dls-server
-curl -I http://localhost:8787/batch_evaluate
-```
-
-**Common causes:**
-- DLS Server image was not loaded: run `docker load -i drg-language-server-1-1-1.tar`
-- DLS Server crashed: `docker compose restart dls-server`
-
----
-
-### Filter queries are slow
-
-**Possible causes:**
-- Large EGIN dataset with many matching patients
-- DLS Server is under load
-- Low thread count — increase via admin API and restart backend
-
-**Check performance logs** (if `DEBUG_PERFORMANCE_TIME=true`):
-```bash
-docker compose logs -f backend | grep "ms"
-```
-
----
 
 ### CSV download never completes
 
@@ -814,9 +739,7 @@ docker compose exec backend rails runner "GoodJob::Job.where(finished_at: nil).d
 - The `storage/` directory is writable by Docker
 - Disk space is available
 
-```bash
-docker compose logs backend | tail -50
-```
+
 
 ---
 
