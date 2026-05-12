@@ -609,6 +609,62 @@ To check migration status:
 docker compose exec backend rails db:migrate:status
 ```
 
+---
+
+### Parquet Storage & DuckDB
+
+Every uploaded EGIN results in **two Active Storage attachments** on the `Egin` record:
+
+| Attachment | Format | Purpose |
+|---|---|---|
+| `file` | CSV | Preserved for re-export via `GET /api/admin/egins/:id/egin` |
+| `parquet_file` | Parquet | Used for all patient queries via DuckDB |
+
+The Parquet file is generated immediately after upload. The original CSV is never queried directly.
+
+#### CSV → Parquet Conversion
+
+Conversion is **synchronous** and runs inside the `POST /api/admin/egins` request (`ConvertEginToParquetService`):
+
+1. The uploaded CSV is saved via Active Storage and downloaded to `tmp/`
+2. DuckDB reads the CSV with `read_csv_auto(..., delim=';', header=true, all_varchar=true)` and writes a Parquet file to `tmp/`
+3. The Parquet file is attached to the `Egin` record via Active Storage
+4. Both `tmp/` files are deleted
+
+All columns are stored as `VARCHAR` in Parquet — type casting happens at query time, not during conversion.
+
+#### DuckDB Query Execution
+
+Patient data retrieval goes through `ParquetDuckService`, which maintains a **connection pool of 5 DuckDB connections** for concurrent access. At query time the service resolves the Active Storage blob path and issues a SQL `SELECT` against the Parquet file:
+
+```sql
+SELECT "hospital_id", "patient_id", "Aufnahmedatum", ...
+FROM read_parquet('/rails/storage/<hash>/name.parquet')
+WHERE "patient_id" IN (1, 2, 3, ...)
+ORDER BY CAST("patient_id" AS INTEGER) ASC
+LIMIT 50 OFFSET 0
+```
+
+The `WHERE patient_id IN (...)` list contains only the IDs returned by the DLS Server. DuckDB never evaluates DRG expressions — its sole responsibility is **data retrieval, sorting, and pagination**.
+
+Because all Parquet columns are `VARCHAR`, sorting requires an explicit cast per column:
+
+| Column | DuckDB sort expression |
+|---|---|
+| `patient_id`, `hospital_id`, `AlterInJahren`, `LOS`, `ctaze` | `CAST(col AS INTEGER)` |
+| `Geschlecht`, `Hauptdiagnose`, `DRG_bisher` | `CAST(col AS VARCHAR)` |
+| `Aufnahmedatum`, `Entlassdatum` | `STRPTIME(col, '%Y%m%d')` |
+
+Sorting on any column outside this list is silently ignored.
+
+#### Responsibility Split
+
+| Component | Role |
+|---|---|
+| **DLS Server** | Evaluates DRG logic expressions; returns matching `patient_id` list |
+| **DuckDB** | Reads Parquet; filters by ID list; sorts and paginates |
+| **PostgreSQL** | Stores metadata, filter cache, settings |
+| **Active Storage** | Manages file blobs (CSV + Parquet) on disk |
 
 ---
 
@@ -786,5 +842,12 @@ EGIN files must be UTF-8 encoded CSV files with a header row. The application tr
 Workspace ZIP files contain workspace definition files as expected by the DLS Server. The format is defined by SwissDRG. Contact SwissDRG for the workspace specification.
 
 ---
+
+
+## Possible Features
+
+### Backend
+-
+
 
 *For questions or issues, contact the development team.*
