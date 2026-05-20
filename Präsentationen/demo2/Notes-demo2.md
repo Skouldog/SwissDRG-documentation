@@ -26,3 +26,10 @@ Arbeitsweise:
 Zusammenarbeit:
     Positive Aspekte / Was gut funktioniert
     -> Pull request
+
+
+
+
+
+
+Ausgangslage: 
